@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tentvaale | Luxury Event Styling Studio</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ==============================================
+           1. CORE VARIABLES & SETUP
+           ============================================== */
+        :root {
+            --color-ivory: #F7F5F2;
+            --color-charcoal: #1E1E1E;
+            --color-light-accent: #EFEBE4; /* Soft contrast background */
+            --color-gold: #C6A87D;
+            --color-white: #FFFFFF;
+            
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Poppins', sans-serif;
+            
+            --transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--color-ivory);
+            color: var(--color-charcoal);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ==============================================
+           2. TYPOGRAPHY & UTILITIES
+           ============================================== */
+        h1, h2, h3, h4, h5 { font-family: var(--font-heading); font-weight: 400; }
+        i { font-style: italic; color: var(--color-gold); }
+
+        .title-large { font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.1; letter-spacing: -1px; }
+        .body-text { font-size: 1.05rem; color: #6B6B6B; margin-bottom: 1rem; }
+
+        .text-center { text-align: center; }
+        .text-white { color: var(--color-white) !important; }
+        .text-dark { color: var(--color-charcoal); }
+        .text-gold { color: var(--color-gold); text-decoration: none; }
+
+        .mb-small { margin-bottom: 1rem; }
+        .mt-small { margin-top: 1rem; }
+        .mt-medium { margin-top: 2rem; }
+        .mt-large { margin-top: 4rem; }
+        .mb-large { margin-bottom: 3rem; }
+
+        .section-padding { padding: 100px 0; }
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 5%; }
+        .max-w-800 { max-width: 800px; margin: 0 auto; }
+
+        .bg-accent { background-color: var(--color-light-accent); }
+        .bg-dark { background-color: var(--color-charcoal); color: var(--color-white); }
+
+        /* ==============================================
+           3. BUTTONS & LINKS
+           ============================================== */
+        .btn-solid, .btn-outline {
+            display: inline-block; padding: 16px 32px;
+            font-family: var(--font-body); font-size: 0.85rem; font-weight: 500;
+            letter-spacing: 2px; text-transform: uppercase; text-decoration: none;
+            transition: var(--transition); cursor: pointer; border-radius: 2px;
+        }
+
+        .btn-solid { background-color: var(--color-charcoal); color: var(--color-ivory); border: 1px solid var(--color-charcoal); }
+        .btn-solid:hover { background-color: var(--color-gold); border-color: var(--color-gold); color: var(--color-white); }
+
+        .btn-outline { border: 1px solid var(--color-white); color: var(--color-white); background: transparent;}
+        .btn-outline:hover { background-color: var(--color-white); color: var(--color-charcoal); }
+
+        .cta-buttons { display: flex; gap: 15px; flex-wrap: wrap; }
+
+        /* WhatsApp Float */
+        .float-wa {
+            position: fixed; bottom: 30px; right: 30px;
+            background: #25D366; color: white; width: 65px; height: 65px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4); z-index: 9999;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .float-wa:hover { transform: scale(1.1) translateY(-5px); }
+
+        /* ==============================================
+           4. NAVIGATION
+           ============================================== */
+        .navbar {
+            position: fixed; top: 0; width: 100%; padding: 25px 5%;
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 1000; transition: var(--transition);
+        }
+
+        .navbar.scrolled {
+            background: rgba(247, 245, 242, 0.95); backdrop-filter: blur(15px);
+            padding: 15px 5%; box-shadow: 0 4px 30px rgba(0,0,0,0.05);
+        }
+
+        .navbar.scrolled .nav-brand, .navbar.scrolled .nav-links a { color: var(--color-charcoal); }
+        .navbar.scrolled .btn-outline { border-color: var(--color-charcoal); color: var(--color-charcoal); }
+        .navbar.scrolled .btn-outline:hover { background: var(--color-charcoal); color: var(--color-white); }
+
+        .nav-brand {
+            font-family: var(--font-heading); font-size: 1.8rem; font-weight: 600;
+            color: var(--color-white); display: flex; flex-direction: column; line-height: 0.8;
+        }
+        .nav-brand span {
+            font-family: var(--font-body); font-size: 0.55rem; letter-spacing: 4px;
+            text-transform: uppercase; color: var(--color-gold); margin-top: 6px;
+        }
+
+        .nav-links { display: flex; gap: 40px; }
+        .nav-links a {
+            text-decoration: none; color: var(--color-white);
+            font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px;
+            transition: var(--transition);
+        }
+        .nav-links a:hover { color: var(--color-gold); }
+
+        /* ==============================================
+           5. HERO SECTION
+           ============================================== */
+        .hero {
+            height: 100vh; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden;
+        }
+        .hero-image-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+        .hero-bg { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+        .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(30,30,30,0.4), rgba(30,30,30,0.85)); }
+
+        .hero-content {
+            text-align: center; color: var(--color-white); max-width: 900px; padding: 0 20px; z-index: 2;
+            display: flex; flex-direction: column; align-items: center;
+        }
+        .hero-content .overline { font-size: 0.9rem; letter-spacing: 5px; text-transform: uppercase; margin-bottom: 20px; color: var(--color-gold); }
+        .hero-content h1 { font-size: clamp(3rem, 8vw, 5.5rem); line-height: 1.1; margin-bottom: 40px; text-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+
+        .hero-bottom { display: flex; flex-direction: column; align-items: center; gap: 30px; }
+        .hero-bottom .subtitle { font-size: 1.1rem; font-weight: 300; letter-spacing: 2px; color: rgba(255,255,255,0.9); }
+
+        .spinning-badge { position: absolute; bottom: 40px; right: 5%; width: 120px; height: 120px; z-index: 10; display: flex; align-items: center; justify-content: center; }
+        .spinning-badge svg { animation: spin 15s linear infinite; fill: var(--color-white); letter-spacing: 2px; }
+        .badge-center { position: absolute; font-size: 1.5rem; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        /* Marquee */
+        .marquee-container { background-color: var(--color-charcoal); color: var(--color-gold); padding: 20px 0; overflow: hidden; white-space: nowrap; border-top: 1px solid rgba(255,255,255,0.1); border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .marquee-content { display: inline-block; animation: marquee 25s linear infinite; }
+        .marquee-content span { font-family: var(--font-body); font-size: 0.9rem; font-weight: 500; letter-spacing: 3px; margin-right: 20px; }
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        /* ==============================================
+           6. SPLIT GRID (ABOUT)
+           ============================================== */
+        .split-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+        .img-frame { position: relative; padding: 20px; }
+        .img-frame::before { content: ''; position: absolute; top: 0; right: 0; width: 90%; height: 90%; border: 1px solid var(--color-gold); z-index: -1; transform: translate(20px, -20px); }
+        .img-frame img { width: 100%; height: 100%; object-fit: cover; border-radius: 2px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+
+        /* ==============================================
+           7. SERVICES CARDS
+           ============================================== */
+        .service-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .s-card { background: var(--color-ivory); border-radius: 4px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.03); transition: transform 0.5s; border: 1px solid rgba(0,0,0,0.03); }
+        .s-card:hover { transform: translateY(-10px); border-color: var(--color-gold); }
+        .s-card-img { height: 250px; overflow: hidden; }
+        .s-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s ease; }
+        .s-card:hover .s-card-img img { transform: scale(1.1); }
+        .s-card-content { padding: 30px; text-align: center; }
+        .s-card-content h3 { font-size: 1.8rem; margin-bottom: 15px; color: var(--color-charcoal); }
+
+        .luxury-list { list-style: none; text-align: left; display: inline-block; color: var(--color-charcoal); opacity: 0.8; }
+        .luxury-list li { margin-bottom: 8px; position: relative; padding-left: 20px; font-size: 0.95rem; }
+        .luxury-list li::before { content: "✦"; position: absolute; left: 0; color: var(--color-gold); font-size: 0.8rem; top: 4px; }
+
+        /* ==============================================
+           8. WHY CHOOSE US
+           ============================================== */
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
+        .feature-box { background: var(--color-white); padding: 40px 20px; text-align: center; border: 1px solid rgba(0,0,0,0.05); border-radius: 4px; transition: var(--transition); }
+        .feature-box:hover { border-color: var(--color-gold); box-shadow: 0 10px 20px rgba(0,0,0,0.02); }
+        .f-icon { font-size: 2.5rem; margin-bottom: 15px; }
+        .feature-box h4 { font-family: var(--font-body); font-weight: 500; font-size: 1.1rem; letter-spacing: 1px; color: var(--color-charcoal); }
+
+        /* ==============================================
+           9. BENTO GALLERY
+           ============================================== */
+        .bento-layout { display: grid; grid-template-columns: repeat(2, 1fr); grid-auto-rows: 350px; gap: 20px; }
+        .bento-box { border-radius: 4px; overflow: hidden; position: relative; }
+        .bento-box img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s ease; }
+        .bento-box:hover img { transform: scale(1.05); }
+        .bento-large { grid-row: span 2; }
+
+        /* ==============================================
+           10. EMOTIONAL BANNER
+           ============================================== */
+        .emotional-banner { position: relative; padding: 150px 0; background: url('https://images.unsplash.com/photo-1511285560929-80b456fea0bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover fixed; }
+        .eb-overlay { position: absolute; top:0; left:0; width:100%; height:100%; background: rgba(30,30,30,0.85); }
+        .eb-content { position: relative; z-index: 2; }
+
+        /* ==============================================
+           11. TESTIMONIALS
+           ============================================== */
+        .review-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; }
+        .review-card { padding: 40px; background: var(--color-white); position: relative; border-radius: 4px; border-top: 3px solid var(--color-gold); box-shadow: 0 5px 15px rgba(0,0,0,0.03); }
+        .quote-mark { font-family: var(--font-heading); font-size: 5rem; color: var(--color-light-accent); position: absolute; top: 10px; left: 20px; line-height: 1; }
+        .review-text { font-family: var(--font-heading); font-size: 1.3rem; font-style: italic; position: relative; z-index: 1; color: var(--color-charcoal); margin-bottom: 20px; line-height: 1.5; }
+        .review-author { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; color: #6B6B6B; }
+
+        /* ==============================================
+           12. FAQ SECTION
+           ============================================== */
+        .faq-accordion { display: flex; flex-direction: column; gap: 15px; }
+        .faq-item { background: var(--color-white); border-radius: 4px; padding: 20px 30px; box-shadow: 0 2px 10px rgba(0,0,0,0.02); }
+        .faq-item summary { font-family: var(--font-body); font-weight: 500; font-size: 1.1rem; cursor: pointer; list-style: none; position: relative; padding-right: 30px; color: var(--color-charcoal); }
+        .faq-item summary::-webkit-details-marker { display: none; }
+        .faq-item summary::after { content: '+'; position: absolute; right: 0; top: 0; font-size: 1.5rem; color: var(--color-gold); transition: var(--transition); }
+        .faq-item[open] summary::after { content: '−'; }
+        .faq-item p { margin-top: 15px; color: #6B6B6B; font-size: 0.95rem; border-top: 1px solid var(--color-light-accent); padding-top: 15px; }
+
+        /* ==============================================
+           13. BESPOKE CONTACT FORM
+           ============================================== */
+        .bespoke-form { display: flex; flex-direction: column; gap: 30px; }
+        .bespoke-form input, .bespoke-form textarea, .custom-select {
+            width: 100%; background: transparent; border: none; border-bottom: 1px solid rgba(255,255,255,0.3);
+            padding: 15px 0; color: var(--color-white); font-family: var(--font-body); font-size: 1rem; transition: var(--transition);
+        }
+        .custom-select option { background: var(--color-charcoal); color: var(--color-white); }
+        .bespoke-form input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(1); cursor: pointer; }
+        .bespoke-form input:focus, .bespoke-form textarea:focus, .custom-select:focus { outline: none; border-bottom-color: var(--color-gold); }
+        .form-submit { align-self: flex-start; background: var(--color-gold); border-color: var(--color-gold); margin-top: 10px; color: var(--color-white); }
+        .form-submit:hover { background: var(--color-white); color: var(--color-charcoal); }
+
+        .footer { background: #151515; color: #888; padding: 40px 0; font-size: 0.9rem; border-top: 1px solid rgba(255,255,255,0.05); }
+
+        /* ==============================================
+           14. ANIMATIONS (Scroll Reveals)
+           ============================================== */
+        .fade-up { opacity: 0; transform: translateY(40px); animation: fadeUpAnim 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+        @keyframes fadeUpAnim { to { opacity: 1; transform: translateY(0); } }
+        .scroll-reveal { opacity: 0; transform: translateY(50px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+        .scroll-reveal.active { opacity: 1; transform: translateY(0); }
+        .delay-1 { transition-delay: 0.2s; }
+        .delay-2 { transition-delay: 0.4s; }
+
+        /* ==============================================
+           15. MOBILE RESPONSIVENESS
+           ============================================== */
+        @media (max-width: 992px) {
+            .split-grid { grid-template-columns: 1fr; gap: 50px; }
+            .bento-layout { grid-template-columns: 1fr; }
+            .bento-large { grid-row: span 1; }
+            .spinning-badge { display: none; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links, .nav-btn { display: none; }
+            .hero-bottom { gap: 15px; }
+            .title-large { font-size: 2.5rem; }
+            .section-padding { padding: 80px 0; }
+            .img-frame::before { transform: translate(10px, -10px); }
+            .emotional-banner { background-attachment: scroll; } 
+        }
+    </style>
+</head>
+<body>
+
+    <a href="https://wa.me/919876543210" class="float-wa" aria-label="Chat on WhatsApp">
+        <svg viewBox="0 0 32 32" width="28" height="28" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M16 2a13 13 0 0 0-10.9 19.9L3 29l7.3-2.1A12.9 12.9 0 0 0 16 28a13 13 0 0 0 0-26zm0 23.8a10.8 10.8 0 0 1-5.5-1.5l-.4-.2-4.1 1.2 1.1-4-.3-.4A10.8 10.8 0 1 1 16 25.8zm6-8.2c-.3-.2-2-.9-2.3-1-.3-.1-.5-.2-.7.2s-.8 1-.1 1.2c-.3.2-.8.5-2 1.4-1.1.8-1.7 1.5-2 1.5-.2.1-.5.3-.2.5.2.2.8 1.4.9 1.6.2.3.4.4.7.2s.5-.5.7-.7c.2-.2.4-.5.5-.7.1-.3 0-.5-.1-.7s-1-2.3-1.4-3.2c-.3-.8-.7-.7-1-.7h-.8c-.3 0-.8.1-1.2.6-.4.5-1.6 1.5-1.6 3.7s1.6 4.3 1.9 4.6c.2.3 3.1 4.8 7.5 6.7 1 .5 1.9.7 2.5.9 1 .3 2 .3 2.8.2.9-.1 2.8-1.1 3.2-2.2.4-1.1.4-2 .3-2.2-.2-.3-.5-.4-.8-.6z"/></svg>
+    </a>
+
+    <nav class="navbar" id="navbar">
+        <div class="nav-brand">TENTVAALE <span>Event Styling</span></div>
+        <div class="nav-links">
+            <a href="#about">The Vision</a>
+            <a href="#services">Services</a>
+            <a href="#gallery">Portfolio</a>
+            <a href="#testimonials">Love</a>
+            <a href="#faq">FAQ</a>
+        </div>
+        <a href="#contact" class="btn-outline nav-btn">Inquire Now</a>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-image-container">
+            <img src="https://cdn.pixabay.com/photo/2022/12/16/02/44/wedding-7658831_1280.jpg?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Luxury Wedding Decor" class="hero-bg">
+            <div class="hero-overlay"></div>
+        </div>
+        
+        <div class="hero-content fade-up">
+            <p class="overline">Gujarat, India</p>
+            <h1>Celebrations, Styled to be <br><i>Remembered.</i></h1>
+            
+            <div class="hero-bottom">
+                <p class="subtitle">Wedding Decor • Event Furniture • Custom Backdrops</p>
+                <a href="#contact" class="btn-solid">Book Consultation</a>
+            </div>
+        </div>
+
+        <div class="spinning-badge">
+            <svg viewBox="0 0 100 100" width="120" height="120">
+                <defs><path id="circle" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0"/></defs>
+                <text font-size="12"><textPath xlink:href="#circle">WE STYLE • YOU CELEBRATE • TENTVAALE STUDIO •</textPath></text>
+            </svg>
+            <div class="badge-center">✨</div>
+        </div>
+    </header>
+
+    <div class="marquee-container">
+        <div class="marquee-content">
+            <span>LUXURY WEDDINGS ✦ EVENT STYLING ✦ PREMIUM FURNITURE ✦ CUSTOM BACKDROPS ✦ BESPOKE DECOR ✦</span>
+            <span>LUXURY WEDDINGS ✦ EVENT STYLING ✦ PREMIUM FURNITURE ✦ CUSTOM BACKDROPS ✦ BESPOKE DECOR ✦</span>
+        </div>
+    </div>
+
+    <section id="about" class="editorial-split section-padding">
+        <div class="container split-grid">
+            <div class="split-text scroll-reveal">
+                <h2 class="title-large">Where Details<br>Meet <i>Emotion.</i></h2>
+                <p class="mt-medium body-text">Tentvaale is a premium event styling studio based in Gujarat, transforming empty spaces into breathtaking experiences.</p>
+                <p class="body-text">From grand luxury weddings to intimate celebrations, we curate premium furniture, bespoke backdrops, and meticulous prop styling so your event reflects your unique story.</p>
+            </div>
+            <div class="split-image scroll-reveal delay-1">
+                <div class="img-frame">
+                    <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Beautiful Event Setup">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="services section-padding bg-accent">
+        <div class="container">
+            <div class="text-center scroll-reveal">
+                <h2 class="title-large text-dark">Our <i>Expertise</i></h2>
+            </div>
+            
+            <div class="service-cards mt-large">
+                <div class="s-card scroll-reveal">
+                    <div class="s-card-img"><img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" alt="Wedding Decor"></div>
+                    <div class="s-card-content">
+                        <h3>Wedding Decor</h3>
+                        <ul class="luxury-list">
+                            <li>Bespoke Themes</li>
+                            <li>Haldi & Mehendi Styling</li>
+                            <li>Mandap & Reception Setup</li>
+                            <li>Floral Artistry</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="s-card scroll-reveal delay-1">
+                    <div class="s-card-img"><img src="https://images.unsplash.com/photo-1505909182942-e2f09aee3e89?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Event Furniture"></div>
+                    <div class="s-card-content">
+                        <h3>Furniture & Props</h3>
+                        <ul class="luxury-list">
+                            <li>Premium Seating</li>
+                            <li>Luxury Lounge Setups</li>
+                            <li>Curated Tableware</li>
+                            <li>Exclusive Prop Sourcing</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="s-card scroll-reveal delay-2">
+                    <div class="s-card-img"><img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Backdrops"></div>
+                    <div class="s-card-content">
+                        <h3>Custom Backdrops</h3>
+                        <ul class="luxury-list">
+                            <li>Photo-Op Walls</li>
+                            <li>Stage Installations</li>
+                            <li>Immersive Entrances</li>
+                            <li>Neon & Lighting Accents</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="why-us section-padding">
+        <div class="container">
+            <h2 class="title-large text-center mb-large scroll-reveal">Why Choose <i>Us</i></h2>
+            <div class="features-grid scroll-reveal delay-1">
+                <div class="feature-box">
+                    <div class="f-icon">✒️</div>
+                    <h4>Bespoke Concepts</h4>
+                </div>
+                <div class="feature-box">
+                    <div class="f-icon">💎</div>
+                    <h4>Premium Inventory</h4>
+                </div>
+                <div class="feature-box">
+                    <div class="f-icon">🔍</div>
+                    <h4>Attention to Detail</h4>
+                </div>
+                <div class="feature-box">
+                    <div class="f-icon">✨</div>
+                    <h4>Flawless Execution</h4>
+                </div>
+                <div class="feature-box">
+                    <div class="f-icon">🏛️</div>
+                    <h4>Luxury Aesthetics</h4>
+                </div>
+                <div class="feature-box">
+                    <div class="f-icon">🤝</div>
+                    <h4>End-to-End Styling</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery" class="gallery section-padding bg-accent">
+        <div class="container">
+            <h2 class="title-large text-center mb-large scroll-reveal">Signature.<br><i>Experiences.</i></h2>
+            <div class="bento-layout">
+                <div class="bento-box bento-large scroll-reveal">
+                    <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Luxury Lounge Styling">
+                </div>
+                <div class="bento-box scroll-reveal delay-1">
+                    <img src="https://images.unsplash.com/photo-1555244162-803834f70033?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Table Setting">
+                </div>
+                <div class="bento-box scroll-reveal delay-2">
+                    <img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Event Setup">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="emotional-banner scroll-reveal">
+        <div class="eb-overlay"></div>
+        <div class="container text-center eb-content">
+            <h2 class="title-large text-white">"Thoughtfully Curated.<br>Experiences <i>Elevated.</i>"</h2>
+            <p class="body-text text-white mt-small" style="opacity: 0.9;">From the first mood board to the final teardown, we manage your aesthetic with precision.<br>Your dream celebration deserves a touch of luxury.</p>
+            <a href="#contact" class="btn-solid mt-medium" style="background:var(--color-white); color:var(--color-charcoal);">Plan My Event</a>
+        </div>
+    </section>
+
+    <section id="testimonials" class="testimonials section-padding">
+        <div class="container">
+            <h2 class="title-large text-center mb-large scroll-reveal">Client <i>Stories</i></h2>
+            <div class="review-grid mt-large">
+                <div class="review-card scroll-reveal">
+                    <div class="quote-mark">“</div>
+                    <p class="review-text">Tentvaale transformed our venue into an absolute dream. The attention to detail and the sheer elegance of the styling left our guests speechless.</p>
+                    <h5 class="review-author">- Riya & Kunal</h5>
+                </div>
+                <div class="review-card scroll-reveal delay-1">
+                    <div class="quote-mark">“</div>
+                    <p class="review-text">Working with this team was seamless. They understood my vision perfectly and elevated it beyond my expectations. A truly premium luxury experience.</p>
+                    <h5 class="review-author">- Devanshi Shah</h5>
+                </div>
+                <div class="review-card scroll-reveal delay-2">
+                    <div class="quote-mark">“</div>
+                    <p class="review-text">From the bespoke backdrops to the chic furniture, everything felt cinematic. They handle stress incredibly well and delivered flawless execution.</p>
+                    <h5 class="review-author">- Aarav Mehta</h5>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="faq-section section-padding bg-accent">
+        <div class="container max-w-800">
+            <h2 class="title-large text-center mb-large scroll-reveal">Common <i>Questions</i></h2>
+            <div class="faq-accordion scroll-reveal delay-1">
+                <details class="faq-item">
+                    <summary>Do you travel outside of Gujarat for events?</summary>
+                    <p>Yes, while our styling studio is based in Gujarat, we handle luxury weddings and premium decor setups across India for destination events.</p>
+                </details>
+                <details class="faq-item">
+                    <summary>Do you provide the furniture and props?</summary>
+                    <p>Absolutely. We have a vast, premium inventory of luxury furniture, specialized props, and curated backdrops specifically for our clients.</p>
+                </details>
+                <details class="faq-item">
+                    <summary>Do you offer custom styling packages?</summary>
+                    <p>Yes, every event is unique. We provide bespoke concepts tailored exactly to your vision, venue space, and specific aesthetic requirements.</p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact section-padding bg-dark">
+        <div class="container split-grid">
+            <div class="contact-info scroll-reveal">
+                <p class="overline mb-small" style="color: var(--color-gold); letter-spacing: 3px;">Let's Begin</p>
+                <h2 class="title-large text-white">Create Your<br>Dream Celebration <i>Today 💫</i></h2>
+                <div class="contact-details mt-medium">
+                    <p class="mt-small">📍 <strong>Location:</strong> Gujarat, India</p>
+                    <p class="mt-small">📞 <strong>Phone:</strong> <a href="tel:9876543210" class="text-gold">+91 98765 43210</a></p>
+                    
+                    <div class="cta-buttons mt-medium">
+                        <a href="tel:9876543210" class="btn-outline">📞 Call Now</a>
+                        <a href="https://wa.me/919876543210" class="btn-solid" style="background:#25D366; border-color:#25D366; color:white;">💬 WhatsApp Us</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-container scroll-reveal delay-1">
+                <form action="#" class="bespoke-form">
+                    <input type="text" placeholder="Your Name" required>
+                    <input type="tel" placeholder="Phone Number" required>
+                    <select required class="custom-select">
+                        <option value="" disabled selected>Select Styling Service</option>
+                        <option value="wedding">Wedding / Pre-Wedding Decor</option>
+                        <option value="furniture">Furniture & Lounge Setup</option>
+                        <option value="corporate">Corporate Gala Styling</option>
+                        <option value="other">Private Luxury Event</option>
+                    </select>
+                    <input type="date" required title="Event Date">
+                    <textarea rows="3" placeholder="Tell us about your event vision..." required></textarea>
+                    <button type="submit" class="btn-solid form-submit">Get Free Consultation</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container text-center">
+            <h3 style="color: white; margin-bottom: 10px; font-size: 1.5rem; font-family: var(--font-heading);">TENTVAALE STUDIO</h3>
+            <p>&copy; 2026 All rights reserved. Thoughtfully styled in Gujarat.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth Sticky Navbar
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Intersection Observer for Scroll Animations
+        const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.scroll-reveal, .fade-up').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
